@@ -5,9 +5,10 @@ fun main() {
     myLikes.addLikes()
     myComment.comment = "Мой комментарий"
     var myPost = Post(1,comments = myComment, likes = myLikes)
+    val my2Post = Post(2,comments = myComment, likes = myLikes)
     println(myArrayPosts.add(myPost))
     myPost = myPost.copy(date = 257890)
-    myArrayPosts.update(myPost)
+    println(myArrayPosts.update(my2Post))
     println(myArrayPosts)
     println(myArrayPosts.getLastPost())
 
@@ -31,18 +32,22 @@ object WallService {
     private var posts = emptyArray<Post>()
     private var uId:Int = 0
 
+    fun clear() {
+        posts = emptyArray()
+        uId=0
+    }
+
     fun add(post: Post): Post {
         posts += post.copy(id=++uId)
         return posts.last()
     }
 
     fun update(post: Post): Boolean {
-
         for ((index, value) in posts.withIndex()) {
                 if (post.id== value.id){
                     posts[index]=post.copy()
+                    return true
                 }
-            return true
         }
         return false
     }
