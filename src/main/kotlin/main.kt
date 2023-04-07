@@ -1,53 +1,73 @@
 fun main() {
     val myArrayPosts = WallService
-    val myComment = comments
-    val myLikes = likes
+    val myComment = Comments
+    val myLikes = Likes
     myLikes.addLikes()
     myComment.comment = "Мой комментарий"
-    var myPost = Post(1,comments = myComment, likes = myLikes)
-    val my2Post = Post(2,comments = myComment, likes = myLikes)
+    val myViews = Views
+    myViews.count=100
+    var myPost = Post(1, comments = myComment, likes = myLikes, views = myViews)
+    val my2Post = Post(2, comments = myComment, likes = myLikes )
     println(myArrayPosts.add(myPost))
     myPost = myPost.copy(date = 257890)
     println(myArrayPosts.update(my2Post))
     println(myArrayPosts)
     println(myArrayPosts.getLastPost())
+    println(my2Post)
 
 
 }
 
 data class Post(
-    val id: Int ,
+    val id: Int,
+    val ownerID: Int = 0,
     val fromId: Int = 0,
+    val createdBy: String? = null,
     val date: Long = 270123,
     val text: String = "",
-    var comments: comments,
-    val likes: likes,
+    val replyOwnerId: Int = 0,
+    val replyPostId: Int = 0,
+    val friendsOnly: Boolean = false,
+    val comments: Comments? = null,
+    val copyright: Copyright? = null,
+    val likes: Likes,
+    val repost: Repost? = null,
+    val views: Views? =null,
     val postType: String = "post",
+    val postSource: String = "",
+    val geo: Geo? = null,
+    val signerId: Int = 0,
+    val copyHistory: CopyHistory? = null,
     val canPin: Boolean = true,
     val canDelete: Boolean = true,
     val canEdit: Boolean = true,
+    val isPinned: Boolean = false,
+    val markedAsAds: Boolean = false,
+    val ifFavorite: Boolean = false,
+    val donut: Donut? = null,
+    val postponedId: Boolean = false
 )
 
 object WallService {
     private var posts = emptyArray<Post>()
-    private var uId:Int = 0
+    private var uId: Int = 0
 
     fun clear() {
         posts = emptyArray()
-        uId=0
+        uId = 0
     }
 
     fun add(post: Post): Post {
-        posts += post.copy(id=++uId)
+        posts += post.copy(id = ++uId)
         return posts.last()
     }
 
     fun update(post: Post): Boolean {
         for ((index, value) in posts.withIndex()) {
-                if (post.id== value.id){
-                    posts[index]=post.copy()
-                    return true
-                }
+            if (post.id == value.id) {
+                posts[index] = post.copy()
+                return true
+            }
         }
         return false
     }
@@ -57,12 +77,38 @@ object WallService {
     }
 }
 
+object Copyright {
+    var id: Int = 0
+    var link: String = ""
+    var name: String = ""
+    var type: String = ""
 
-object comments {
+
+}
+
+object Repost {
+    val count: Int = 0
+    val userReposted: Boolean = false
+}
+
+object Views {
+    var count: Int = 0
+    override fun toString(): String {
+        return count.toString()
+    }
+}
+
+object Geo {
+    val type: String = ""
+    val coordinates: String = ""
+    val place: String = ""
+}
+
+object Comments {
     var comment: String = ""
     var canPost: Boolean = true
     var groupsCanPost: Boolean = true
-    var canCclose: Boolean = true
+    var canClose: Boolean = true
     var canOpen: Boolean = true
 
     @Override
@@ -71,7 +117,24 @@ object comments {
     }
 }
 
-object likes {
+object CopyHistory {
+    //TODO
+}
+
+object Donut {
+    val isDonut: Boolean = false
+    val paidDuration: Int = 100
+    val placeholder: String = "Доступно с подпиской VK Donut"
+    val canPublishFreeCopy: Boolean = false
+    val editMore: String =
+        "Вы можете изменить значения в записи " +
+                "all - Вся информация о VK Donut и" +
+                " duration - Время в течении которого запись" +
+                "  будет доступна платным подписчиками Vk Donut"
+
+}
+
+object Likes {
     private var count: Int = 0
 
     init {
