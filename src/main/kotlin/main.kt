@@ -5,9 +5,9 @@ fun main() {
     myLikes.addLikes()
     myComment.comment = "Мой комментарий"
     val myViews = Views
-    myViews.count=100
+    myViews.count = 100
     var myPost = Post(1, comments = myComment, likes = myLikes, views = myViews)
-    val my2Post = Post(2, comments = myComment, likes = myLikes )
+    val my2Post = Post(2, comments = myComment, likes = myLikes)
     println(myArrayPosts.add(myPost))
     myPost = myPost.copy(date = 257890)
     println(myArrayPosts.update(my2Post))
@@ -32,9 +32,10 @@ data class Post(
     val copyright: Copyright? = null,
     val likes: Likes,
     val repost: Repost? = null,
-    val views: Views? =null,
+    val views: Views? = null,
     val postType: String = "post",
     val postSource: String = "",
+    val attachments: Array<Attachment> = emptyArray(),
     val geo: Geo? = null,
     val signerId: Int = 0,
     val copyHistory: CopyHistory? = null,
@@ -101,7 +102,11 @@ object Views {
 object Geo {
     val type: String = ""
     val coordinates: String = ""
-    val place: String = ""
+    val place: Place? = null
+}
+
+class Place {
+    val text = "Описание места"
 }
 
 object Comments {
@@ -118,7 +123,7 @@ object Comments {
 }
 
 object CopyHistory {
-    //TODO
+
 }
 
 object Donut {
