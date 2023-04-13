@@ -116,7 +116,7 @@ class Comments {
     var canClose: Boolean = true
     var canOpen: Boolean = true
 
-    @Override
+    
     override fun toString(): String {
         return comment
     }
