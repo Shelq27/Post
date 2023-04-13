@@ -1,10 +1,10 @@
 fun main() {
     val myArrayPosts = WallService
-    val myComment = Comments
-    val myLikes = Likes
+    val myComment = Comments()
+    val myLikes = Likes()
     myLikes.addLikes()
     myComment.comment = "Мой комментарий"
-    val myViews = Views
+    val myViews = Views()
     myViews.count = 100
     var myPost = Post(1, comments = myComment, likes = myLikes, views = myViews)
     val my2Post = Post(2, comments = myComment, likes = myLikes)
@@ -78,7 +78,7 @@ object WallService {
     }
 }
 
-object Copyright {
+class Copyright {
     var id: Int = 0
     var link: String = ""
     var name: String = ""
@@ -87,19 +87,19 @@ object Copyright {
 
 }
 
-object Repost {
+class Repost {
     val count: Int = 0
     val userReposted: Boolean = false
 }
 
-object Views {
+class Views {
     var count: Int = 0
     override fun toString(): String {
         return count.toString()
     }
 }
 
-object Geo {
+class Geo {
     val type: String = ""
     val coordinates: String = ""
     val place: Place? = null
@@ -109,7 +109,7 @@ class Place {
     val text = "Описание места"
 }
 
-object Comments {
+class Comments {
     var comment: String = ""
     var canPost: Boolean = true
     var groupsCanPost: Boolean = true
@@ -122,11 +122,11 @@ object Comments {
     }
 }
 
-object CopyHistory {
+class CopyHistory {
 
 }
 
-object Donut {
+class Donut {
     val isDonut: Boolean = false
     val paidDuration: Int = 100
     val placeholder: String = "Доступно с подпиской VK Donut"
@@ -139,7 +139,7 @@ object Donut {
 
 }
 
-object Likes {
+class Likes {
     private var count: Int = 0
 
     init {
@@ -152,7 +152,6 @@ object Likes {
         count++
     }
 
-    @Override
     override fun toString(): String {
         return "$count"
     }

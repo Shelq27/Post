@@ -12,8 +12,8 @@ class WallServiceTest {
     @Test
     fun addTest() {
         val service = WallService
-        val myComment = Comments
-        val myLikes = Likes
+        val myComment = Comments()
+        val myLikes = Likes()
         myLikes.addLikes()
         myComment.comment = "Мой комментарий"
         val myFirstPost = Post(1,comments=myComment, likes = myLikes)
@@ -27,8 +27,8 @@ class WallServiceTest {
     @Test
     fun updateTestTrue() {
         val service = WallService
-        val myComment = Comments
-        val myLikes = Likes
+        val myComment = Comments()
+        val myLikes = Likes()
         myLikes.addLikes()
         myComment.comment = "Мой комментарий"
         val myFirstPost = Post(1,comments=myComment, likes = myLikes)
@@ -46,8 +46,8 @@ class WallServiceTest {
     @Test
     fun updateTestFalse() {
         val service = WallService
-        val myComment = Comments
-        val myLikes = Likes
+        val myComment = Comments()
+        val myLikes = Likes()
         myLikes.addLikes()
         myComment.comment = "Мой комментарий"
         val myFirstPost = Post(1,comments=myComment, likes = myLikes)
