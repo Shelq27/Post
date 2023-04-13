@@ -1,21 +1,16 @@
+import java.lang.NullPointerException
+import java.lang.RuntimeException
+
 fun main() {
     val myArrayPosts = WallService
-    val myComment = Comments()
-    val myLikes = Likes()
-    myLikes.addLikes()
-    myComment.comment = "Мой комментарий"
-    val myViews = Views()
-    myViews.count = 100
-    var myPost = Post(1, comments = myComment, likes = myLikes, views = myViews)
-    val my2Post = Post(2, comments = myComment, likes = myLikes)
-    println(myArrayPosts.add(myPost))
-    myPost = myPost.copy(date = 257890)
-    println(myArrayPosts.update(my2Post))
-    println(myArrayPosts)
-    println(myArrayPosts.getLastPost())
-    println(my2Post)
+    val myPost = Post(1)
+    myArrayPosts.add(myPost)
 
-
+    val my2Post = Post(2)
+    val myComment = Comment(1, "Мой комментарий", "13.04.2023")
+    myArrayPosts.add(my2Post)
+    myArrayPosts.createComment(4, myComment)
+    myArrayPosts.getAllPosts()
 }
 
 data class Post(
@@ -28,9 +23,9 @@ data class Post(
     val replyOwnerId: Int = 0,
     val replyPostId: Int = 0,
     val friendsOnly: Boolean = false,
-    val comments: Comments? = null,
+    var comments: Comment? = null,
     val copyright: Copyright? = null,
-    val likes: Likes,
+    val likes: Likes? = null,
     val repost: Repost? = null,
     val views: Views? = null,
     val postType: String = "post",
@@ -51,6 +46,7 @@ data class Post(
 
 object WallService {
     private var posts = emptyArray<Post>()
+    private var comment = emptyArray<Comment>()
     private var uId: Int = 0
 
     fun clear() {
@@ -76,7 +72,25 @@ object WallService {
     fun getLastPost(): Post {
         return posts.last()
     }
+
+    fun getAllPosts() {
+        for (post in posts) {
+            println("$post")
+        }
+    }
+
+    fun createComment(postID: Int, comment: Comment): Comment {
+        for (post in posts) {
+            if (post.id == postID) {
+                post.comments = comment
+                return comment
+            }
+        }
+        return throw PostNotFoundException("Пост с номер id=$postID не найден")
+    }
 }
+
+class PostNotFoundException(message: String) : RuntimeException(message)
 
 class Copyright {
     var id: Int = 0
@@ -109,16 +123,13 @@ class Place {
     val text = "Описание места"
 }
 
-class Comments {
-    var comment: String = ""
-    var canPost: Boolean = true
-    var groupsCanPost: Boolean = true
-    var canClose: Boolean = true
-    var canOpen: Boolean = true
-
-    
+class Comment(
+    val id: Int = 0,
+    var text: String = "",
+    val date: String = ""
+) {
     override fun toString(): String {
-        return comment
+        return text
     }
 }
 
@@ -156,6 +167,7 @@ class Likes {
         return "$count"
     }
 }
+
 
 
 
