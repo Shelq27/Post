@@ -5,11 +5,10 @@ fun main() {
     val myArrayPosts = WallService
     val myPost = Post(1)
     myArrayPosts.add(myPost)
-
     val my2Post = Post(2)
     val myComment = Comment(1, "Мой комментарий", "13.04.2023")
     myArrayPosts.add(my2Post)
-    myArrayPosts.createComment(4, myComment)
+    myArrayPosts.createComment(2, myComment)
     myArrayPosts.getAllPosts()
 }
 
@@ -86,7 +85,7 @@ object WallService {
                 return comment
             }
         }
-        return throw PostNotFoundException("Пост с номер id=$postID не найден")
+        throw PostNotFoundException("Пост с номер id=$postID не найден")
     }
 }
 
