@@ -1,4 +1,3 @@
-import java.lang.NullPointerException
 import java.lang.RuntimeException
 
 fun main() {
@@ -6,7 +5,7 @@ fun main() {
     val myPost = Post(1)
     myArrayPosts.add(myPost)
     val my2Post = Post(2)
-    val myComment = Comment(1, "Мой комментарий", "13.04.2023")
+    val myComment = Comment(1, "Мой комментарий")
     myArrayPosts.add(my2Post)
     myArrayPosts.createComment(2, myComment)
     myArrayPosts.getAllPosts()
@@ -43,9 +42,9 @@ data class Post(
     val postponedId: Boolean = false
 )
 
+
 object WallService {
     private var posts = emptyArray<Post>()
-    private var comment = emptyArray<Comment>()
     private var uId: Int = 0
 
     fun clear() {
@@ -90,6 +89,8 @@ object WallService {
 }
 
 class PostNotFoundException(message: String) : RuntimeException(message)
+class NoteNotFoundException(message: String) : RuntimeException(message)
+class CommentNotFoundException(message: String) : RuntimeException(message)
 
 class Copyright {
     var id: Int = 0
@@ -122,15 +123,11 @@ class Place {
     val text = "Описание места"
 }
 
-class Comment(
+data class Comment(
     val id: Int = 0,
-    var text: String = "",
-    val date: String = ""
-) {
-    override fun toString(): String {
-        return text
-    }
-}
+    var message: String = "",
+)
+data class Note(val id: Int, val title: String, val text: String,val commentList: MutableList<Comment> = mutableListOf(), var cId:Int=0)
 
 class CopyHistory {
 

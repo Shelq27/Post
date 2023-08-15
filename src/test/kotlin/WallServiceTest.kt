@@ -1,5 +1,4 @@
 import org.junit.Test
-
 import org.junit.Assert.*
 import org.junit.Before
 
@@ -15,7 +14,7 @@ class WallServiceTest {
         val myComment = Comment()
         val myLikes = Likes()
         myLikes.addLikes()
-        myComment.text = "Мой комментарий"
+        myComment.message = "Мой комментарий"
         val myFirstPost = Post(1, comments = myComment, likes = myLikes)
         service.add(myFirstPost)
         assertTrue(service.getLastPost().id != 0)
@@ -32,7 +31,7 @@ class WallServiceTest {
         val myComment = Comment()
         val myLikes = Likes()
         myLikes.addLikes()
-        myComment.text = "Мой комментарий"
+        myComment.message = "Мой комментарий"
         val myFirstPost = Post(1, comments = myComment, likes = myLikes)
         val mySecondPost = Post(2, comments = myComment, likes = myLikes)
         service.add(myFirstPost)
@@ -53,7 +52,7 @@ class WallServiceTest {
         val myComment = Comment()
         val myLikes = Likes()
         myLikes.addLikes()
-        myComment.text = "Мой комментарий"
+        myComment.message = "Мой комментарий"
         val myFirstPost = Post(1, comments = myComment, likes = myLikes)
         val mySecondPost = Post(2, comments = myComment, likes = myLikes)
         val myTreePost = Post(3, comments = myComment, likes = myLikes)
