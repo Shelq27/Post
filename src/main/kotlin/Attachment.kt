@@ -33,14 +33,6 @@ class Video {
 
 class VideoAttachment(val video: Video, override val type: String = "video") : Attachment()
 
-class Note {
-    val id: Int = 0
-    val title: String = ""
-    val date: Int = 0
-    val comments: Int = 0
-    val text: String = ""
-}
-class NoteAttachment(val note: Note, override val type: String = "note") : Attachment()
 class Doc {
     val id: Int = 0
     val title: String = ""
