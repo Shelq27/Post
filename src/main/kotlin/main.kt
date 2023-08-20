@@ -89,8 +89,7 @@ object WallService {
 }
 
 class PostNotFoundException(message: String) : RuntimeException(message)
-class NoteNotFoundException(message: String) : RuntimeException(message)
-class CommentNotFoundException(message: String) : RuntimeException(message)
+
 
 class Copyright {
     var id: Int = 0
@@ -127,7 +126,15 @@ data class Comment(
     val id: Int = 0,
     var message: String = "",
 )
-data class Note(val id: Int, val title: String, val text: String,val commentList: MutableList<Comment> = mutableListOf(), var cId:Int=0)
+
+data class Note(
+    val id: Int,
+    val title: String,
+    val text: String,
+    val commentList: MutableList<Comment> = mutableListOf(),
+    val deleteCommentList: MutableList<Comment> = mutableListOf(),
+    var cId: Int = 0
+)
 
 class CopyHistory {
 
